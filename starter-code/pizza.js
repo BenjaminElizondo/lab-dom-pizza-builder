@@ -1,5 +1,6 @@
 // Write your Pizza Builder JavaScript in this file.
-
+let price = document.getElementById('price');
+let list = document.getElementById('list');
 // Constants 
 var basePrice = 10
 var ingredients = {
@@ -91,30 +92,47 @@ function renderGlutenFreeCrust() {
 
 function renderButtons() {
   // Iteration 3: add/remove the class "active" of each `<button class="btn">`
-  document.querySelectorAll('.btn').forEach(function($checkActive){
-    if (state.pepperonni && $checkActive.classList.contains('active')) {
-      $checkActive.classList.remove('active');
-    }
-    else if (state.mushrooms && $checkActive.classList.contains('active')) {
-      $checkActive.classList.remove('active');
-    }
-    else if (state.greenPeppers && $checkActive.classList.contains('active')) {
-      $checkActive.classList.remove('active');
-    }
-    else if (state.whiteSauce && $checkActive.classList.contains('active')) {
-      $checkActive.classList.remove('active');
-    }
-    else if (state.glutenFreeCrust && $checkActive.classList.contains('active')) {
-      $checkActive.classList.remove('active');
+  let element = document.querySelectorAll("button");
+  let count = 0;
+  let keyArr = Object.keys(state);
+  for(let i in state){
+    if(state[i]){
+      element[count].classList.add("active");
+      document.getElementById(`list-${keyArr[count]}`).style.display = "block";       
     }
     else{
-      $checkActive.classList.add('active')
+      element[count].classList.remove("active");
+      document.getElementById(`list-${keyArr[count]}`).style.display = "none";
     }
-  })
+    count++;
+  }
 }
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
+  let total = 10;
+  let count = 0;
+  for(let i in state){
+    if(state[i]){
+      switch(i){
+        case "pepperonni":
+        case "mushrooms":
+        case "greenPeppers":
+          total += 1;
+          break;
+        case "whiteSauce":
+          total += 3;
+          break;
+        case "glutenFreeCrust":
+          total += 5;
+          break;
+      }
+    }   
+    count++;
+  }
+
+  console.log(total)
+  price.innerHTML = total;
 }
 
 
